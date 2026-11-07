@@ -1,0 +1,12 @@
+body {
+    background-color: rgb(212, 210, 210);
+    color: black;
+}
+
+body.loading {
+    cursor: progress;
+}
+
+input:user-invalid {
+    background-color: rgb(252, 144, 144);
+}
