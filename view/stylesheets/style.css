@@ -6,7 +6,3 @@ body {
 body.loading {
     cursor: progress;
 }
-
-input:user-invalid {
-    background-color: rgb(252, 144, 144);
-}
