@@ -6,6 +6,7 @@
     <title>CsBe ★ <?= $page_title ?></title>
     <link rel="stylesheet" type="text/css" href="/view/stylesheets/style.css">
     <script defer src="/model/api-model.js"></script>
+    <script defer src="/controller/logout-controller.js"></script>
     <?php if ($page_controller_path): ?>
         <script defer src="<?= $page_controller_path ?>"></script>
     <?php endif; ?>

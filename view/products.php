@@ -6,15 +6,20 @@ require __DIR__ . '/blocks/header.php';
 ?>
 
 <h1>Produkte</h1>
+
 <button type="button" onclick="window.location.href='categories.php'">
     Kategorien
 </button>
 
-<button type="button">
+<button type="button" onclick="window.location.href='product-detail.php'">
+    Neues Produkt erfassen
+</button>
+
+<button type="button" onclick="LogoutController.onSubmit(event)">
     Abmelden
 </button>
 
-<table border="10">
+<table border="20">
     <thead>
         <tr>
             <th>SKU:</th>
@@ -22,7 +27,7 @@ require __DIR__ . '/blocks/header.php';
             <th>Preis:</th>
             <th>Lagerbestand:</th>
             <th>Aktiv:</th>
-            <th>ID Kategorie:</th>
+            <th>Kategorie ID:</th>
             <th>Details / Bearbeiten / Löschen:</th>
         </tr>
     </thead>

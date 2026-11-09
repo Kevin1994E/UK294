@@ -1,10 +1,5 @@
 class ProductsController {
 
-    static async loginFailedAlert(response) {
-        const errorData = await response.json();
-        alert(response.status + ": " + errorData.error_message);
-    }
-
     static async loadProducts() {
         try {
             const response = await ApiModel.getProducts();
@@ -36,7 +31,7 @@ class ProductsController {
                 button2.classList.add("delete-button-table");
                 button.textContent = "Details / Bearbeiten";
                 button2.textContent = "Löschen";
-                button.addEventListener("click", () => alert(item.name));
+                button.addEventListener("click", () => alert(product.sku));
                 //Fügt Button in der letzten Zelle ein
                 lastCell.appendChild(button);
                 lastCell.appendChild(button2);

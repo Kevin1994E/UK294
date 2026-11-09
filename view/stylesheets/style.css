@@ -10,3 +10,8 @@ body.loading {
 .delete-button-table {
     margin-left: 8px;
 }
+
+.product-status {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
