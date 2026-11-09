@@ -10,9 +10,10 @@ class ProductsController {
             }
 
             const products = await response.json();
-            console.log("API-Antwort:", products);
+            //console.log("API-Antwort:", products);
 
             const table = document.getElementById("products");
+            // Leert Tabelle
             table.replaceChildren();
 
             for (const product of products) {
@@ -26,16 +27,40 @@ class ProductsController {
                 row.insertCell().textContent = product.id_category;
 
                 const lastCell = row.insertCell();
-                const button = document.createElement("button");
-                const button2 = document.createElement("button");
-                button2.classList.add("delete-button-table");
-                button.textContent = "Details / Bearbeiten";
-                button2.textContent = "Löschen";
-                button.addEventListener("click", () => alert(product.sku));
-                //Fügt Button in der letzten Zelle ein
-                lastCell.appendChild(button);
-                lastCell.appendChild(button2);
+                const editButton = document.createElement("button");
+                const deleteButton = document.createElement("button");
 
+                deleteButton.classList.add("delete-button-table");
+                editButton.textContent = "Details / Bearbeiten";
+                deleteButton.textContent = "Löschen";
+                editButton.addEventListener("click", () => alert(product.sku));
+                //await sorgt dafür das die Seite erst neu geladen wird wenn das löschen fertig ist.
+                deleteButton.addEventListener("click", async () => {
+                    await ProductsController.deleteProduct(product.sku);
+                    location.reload();
+                });
+                //Fügt Button in der letzten Zelle ein
+                lastCell.appendChild(editButton);
+                lastCell.appendChild(deleteButton);
+
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    static async deleteProduct(sku) {
+
+        try {
+            const response = await ApiModel.deleteProduct(sku);
+
+            if (!response.ok) {
+                alert("Status: " + response.status);
+                return;
+            } else if (response.status === 204) {
+                alert("Produkt erfolgreich gelöscht: " + response.status);
+            } else if (response.status === 404) {
+                alert("Produkt nicht gefunden: " + response.status);
             }
         } catch (error) {
             console.error(error);

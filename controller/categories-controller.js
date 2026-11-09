@@ -10,7 +10,7 @@ class CategoriesController {
             }
 
             const categories = await response.json();
-            console.log("API-Antwort:", categories);
+            //console.log("API-Antwort:", categories);
 
             const table = document.getElementById("categories");
             table.replaceChildren();

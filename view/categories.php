@@ -7,16 +7,8 @@ require __DIR__ . '/blocks/header.php';
 
 <h1>Kategorien</h1>
 
-<button type="button" onclick="window.location.href='products.php'">
-    Produkte
-</button>
-
 <button type="button">
     Neue Kategorie erfassen
-</button>
-
-<button type="button" onclick="LogoutController.onSubmit(event)">
-    Abmelden
 </button>
 
 <table border="20">

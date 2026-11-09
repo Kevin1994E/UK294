@@ -12,38 +12,30 @@ require __DIR__ . '/blocks/header.php';
     Zurück
 </button>
 
-<button type="button">
+<button type="button" onclick="window.location.href='product-detail.php'">
     Neues Produkt erfassen
 </button>
 
-<button type="button">
-    Speichern
-</button>
-
-<button type="button" onclick="LogoutController.onSubmit(event)">
-    Abmelden
-</button><br>
-
 <form id="product-form" onSubmit="ProductDetailController.onSubmit(event)"><br>
-    <label>Produkt ID: <br>
-    <input required id="product_id" type="number" min="0" placeholder="Produkt ID"><br></label>
     <label>SKU: <br>
-    <input required maxlength="50" id="sku" type="text" placeholder="SKU"><br></label>
-    <label>Kategorie ID: <br>
-    <input required maxlength="20" id="id_category" type="text" placeholder="Kategorie ID"><br></label>
+        <input required maxlength="10" id="sku" type="text" placeholder="SKU"><br></label>
+    <label for="id_category">Kategorie</label><br>
+    <select id="id_category" required>
+        <option value="">Bitte auswählen</option>
+    </select><br>
     <label>Produkt Name: <br>
-    <input required maxlength="50" id="name" type="text" placeholder="Produkt Name"><br></label>
+        <input required maxlength="50" id="name" type="text" placeholder="Produkt Name"><br></label>
     <label>Bild Link: <br>
-    <input required maxlength="50" id="image" type="text" placeholder="Bild Link"><br></label>
+        <input required maxlength="100" id="image" type="url" placeholder="Bild Link"><br></label>
     <label>Preis: <br>
-    <input required id="price" type="number" min="0" max="999999.99" step="0.01" placeholder="Preis"><br></label>
+        <input required id="price" type="number" min="0" step="0.01" placeholder="Preis"><br></label>
     <label>Lagerbestand stk.: <br>
-    <input required id="stock" type="number" min="0" placeholder="Lagerbestand stk."><br></label>
+        <input required id="stock" type="number" min="0" step="1" placeholder="Lagerbestand stk."><br></label>
     <label>Beschreibung: <br>
-    <input required maxlength="1000" id="description" type="text" placeholder="Beschreibung"><br></label>
-    <p class="product-status">Produkt-Status:</p> 
-    <label><input type="radio" name="activ" value="1"> Aktiv</label>
-    <label><input type="radio" name="activ" value="0"> Nicht aktiv</label>
+        <input required maxlength="1000" id="description" type="text" placeholder="Beschreibung"><br></label>
+    <label>Produkt aktiv: <br>
+        <input type="checkbox" id="product_active" name="active"></label><br>
+    <button type="submit">Speichern</button>
 </form>
 
 <?php
