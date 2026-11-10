@@ -1,4 +1,13 @@
+/**
+ * Sendet die Anfragen an die API.
+ */
 class ApiModel {
+    /**
+     * Meldet den Benutzer an.
+     * @param username Benutzername
+     * @param password Passwort
+     * @returns Promise mit der API-Antwort
+     */
     static sendLogin(username, password) {
         return fetch("https://campus.csbe.ch/uek294/api/v1/authenticate", {
             method: "POST",
@@ -10,6 +19,10 @@ class ApiModel {
         });
     }
 
+    /**
+     * Meldet den Benutzer ab.
+     * @returns Promise mit der API-Antwort
+     */
     static sendLogout() {
         return fetch("https://campus.csbe.ch/uek294/api/v1/unauthenticate", {
             method: "POST",
@@ -17,6 +30,10 @@ class ApiModel {
         });
     }
 
+    /**
+     * Ruft alle Kategorien ab.
+     * @returns Promise mit der API-Antwort
+     */
     static getCategories() {
         return fetch("https://campus.csbe.ch/uek294/api/v1/categories", {
             method: "GET",
@@ -24,6 +41,12 @@ class ApiModel {
         });
     }
 
+    /**
+     * Erstellt eine neue Kategorie.
+     * @param active Status der Kategorie
+     * @param name Name der Kategorie
+     * @returns Promise mit der API-Antwort
+     */
     static createCategory(active, name) {
         return fetch("https://campus.csbe.ch/uek294/api/v1/category", {
             method: "POST",
@@ -35,6 +58,11 @@ class ApiModel {
         });
     }
 
+    /**
+     * Ruft eine Kategorie anhand ihrer ID ab.
+     * @param categoryID ID der Kategorie
+     * @returns Promise mit der API-Antwort
+     */
     static getCategory(categoryID) {
         return fetch("https://campus.csbe.ch/uek294/api/v1/category/" + encodeURIComponent(categoryID), {
             method: "GET",
@@ -42,6 +70,13 @@ class ApiModel {
         });
     }
 
+    /**
+     * Speichert Änderungen an einer Kategorie.
+     * @param categoryID ID der Kategorie
+     * @param active Status der Kategorie
+     * @param name Name der Kategorie
+     * @returns Promise mit der API-Antwort
+     */
     static updateCategory(categoryID, active, name) {
         return fetch("https://campus.csbe.ch/uek294/api/v1/category/" + encodeURIComponent(categoryID), {
             method: "PATCH",
@@ -53,27 +88,53 @@ class ApiModel {
         });
     }
 
+    /**
+     * Löscht die ausgewählte Kategorie.
+     * @param categoryID ID der Kategorie
+     * @returns Promise mit der API-Antwort
+     */
     static deleteCategory(categoryID) {
         return fetch("https://campus.csbe.ch/uek294/api/v1/category/" + encodeURIComponent(categoryID), {
             method: "DELETE",
-            credentials: "include",
+            credentials: "include"
         });
     }
 
+    /**
+     * Ruft alle Produkte ab.
+     * @returns Promise mit der API-Antwort
+     */
     static getProducts() {
         return fetch("https://campus.csbe.ch/uek294/api/v1/products", {
             method: "GET",
-            credentials: "include",
+            credentials: "include"
         });
     }
 
+    /**
+     * Ruft ein Produkt anhand seiner SKU ab.
+     * @param sku SKU des Produkts
+     * @returns Promise mit der API-Antwort
+     */
     static getProduct(sku) {
         return fetch("https://campus.csbe.ch/uek294/api/v1/product/" + encodeURIComponent(sku), {
             method: "GET",
-            credentials: "include",
+            credentials: "include"
         });
     }
 
+    /**
+     * Erstellt oder bearbeitet ein Produkt.
+     * @param sku SKU des Produkts
+     * @param active Status des Produkts
+     * @param id_category ID der Kategorie
+     * @param name Name des Produkts
+     * @param image Link zum Produktbild
+     * @param description Beschreibung des Produkts
+     * @param price Preis des Produkts
+     * @param stock Lagerbestand
+     * @returns Promise mit der API-Antwort
+     */
     static createUpdateProduct(sku, active, id_category, name, image, description, price, stock) {
         return fetch("https://campus.csbe.ch/uek294/api/v1/product/" + encodeURIComponent(sku), {
             method: "PUT",
@@ -90,6 +151,11 @@ class ApiModel {
         });
     }
 
+    /**
+     * Löscht das ausgewählte Produkt.
+     * @param sku SKU des Produkts
+     * @returns Promise mit der API-Antwort
+     */
     static deleteProduct(sku) {
         return fetch("https://campus.csbe.ch/uek294/api/v1/product/" + encodeURIComponent(sku), {
             method: "DELETE",

@@ -32,10 +32,11 @@ require __DIR__ . '/blocks/header.php';
     <label>Lagerbestand stk.: <br>
         <input required id="stock" type="number" min="0" step="1" placeholder="Lagerbestand stk."><br></label>
     <label>Beschreibung: <br>
-        <input required maxlength="1000" id="description" type="text" placeholder="Beschreibung"><br></label>
-    <label>Produkt aktiv: <br>
-        <input type="checkbox" id="product_active" name="active"></label><br>
-    <button type="submit">Speichern</button>
+        <textarea id="description" required maxlength="1000" rows="5" cols="100"
+            placeholder="Beschreibung"></textarea><br>
+        <label>Produkt aktiv: <br>
+            <input type="checkbox" id="product_active" name="active"></label><br>
+        <button type="submit">Speichern</button>
 </form>
 
 <?php

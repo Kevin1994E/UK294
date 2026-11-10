@@ -1,6 +1,14 @@
+/**
+ * Steuert die Produktübersicht.
+ */
 class ProductsController {
 
+    /**
+     * Lädt die Produkte und zeigt sie in der Tabelle.
+     */
     static async loadProducts() {
+        document.body.classList.add("loading");
+
         try {
             const response = await ApiModel.getProducts();
 
@@ -33,12 +41,19 @@ class ProductsController {
                 deleteButton.classList.add("delete-button-table");
                 editButton.textContent = "Details / Bearbeiten";
                 deleteButton.textContent = "Löschen";
-                editButton.addEventListener("click", () => alert(product.sku));
+                editButton.addEventListener("click", () => {
+                    window.location.href = "product-detail.php?sku=" + encodeURIComponent(product.sku);
+                });
+
                 //await sorgt dafür das die Seite erst neu geladen wird wenn das löschen fertig ist.
                 deleteButton.addEventListener("click", async () => {
+                    if (!confirm("Möchtest du dieses Produkt wirklich löschen?\n\nSKU: " + product.sku + "\nName: " + product.name)) {
+                        return;
+                    }
                     await ProductsController.deleteProduct(product.sku);
                     location.reload();
                 });
+                
                 //Fügt Button in der letzten Zelle ein
                 lastCell.appendChild(editButton);
                 lastCell.appendChild(deleteButton);
@@ -46,10 +61,17 @@ class ProductsController {
             }
         } catch (error) {
             console.error(error);
+        } finally {
+            document.body.classList.remove("loading");
         }
     }
 
+    /**
+     * Löscht das ausgewählte Produkt.
+     * @param sku SKU des Produkts
+     */
     static async deleteProduct(sku) {
+        document.body.classList.add("loading");
 
         try {
             const response = await ApiModel.deleteProduct(sku);
@@ -64,6 +86,8 @@ class ProductsController {
             }
         } catch (error) {
             console.error(error);
+        } finally {
+            document.body.classList.remove("loading");
         }
     }
 }

@@ -1,6 +1,7 @@
 body {
     background-color: rgb(212, 210, 210);
     color: black;
+    font-family: Arial, sans-serif;
 }
 
 body.loading {
