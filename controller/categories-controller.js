@@ -12,6 +12,12 @@ class CategoriesController {
         try {
             const response = await ApiModel.getCategories();
 
+            if (response.status === 401) {
+                alert("Sie sind nicht angemeldet.");
+                window.location.replace("/index.php");
+                return;
+            }
+
             if (!response.ok) {
                 alert("Kategorien konnten nicht geladen werden. Status: " + response.status);
                 return;

@@ -32,6 +32,12 @@ class ProductDetailController {
         try {
             const response = await ApiModel.createUpdateProduct(sku, active, id_category, name, image, description, price, stock);
 
+            if (response.status === 401) {
+                alert("Sie sind nicht angemeldet.");
+                window.location.replace("/index.php");
+                return;
+            }
+
             if (!response.ok) {
                 alert("Status: " + response.status);
                 return;
@@ -54,6 +60,12 @@ class ProductDetailController {
      */
     static async loadCategory() {
         const response = await ApiModel.getCategories();
+
+        if (response.status === 401) {
+                alert("Sie sind nicht angemeldet.");
+                window.location.replace("/index.php");
+                return;
+            }
 
         if (!response.ok) {
             throw new Error("Kategorien konnten nicht geladen werden.");

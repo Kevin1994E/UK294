@@ -12,6 +12,12 @@ class ProductsController {
         try {
             const response = await ApiModel.getProducts();
 
+            if (response.status === 401) {
+                alert("Sie sind nicht angemeldet.");
+                window.location.replace("/index.php");
+                return;
+            }
+
             if (!response.ok) {
                 alert("Produkte konnten nicht geladen werden. Status: " + response.status);
                 return;

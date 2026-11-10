@@ -34,6 +34,12 @@ class CategoryDetailController {
                 response = await ApiModel.createCategory(active, name);
             }
 
+            if (response.status === 401) {
+                alert("Sie sind nicht angemeldet.");
+                window.location.replace("/index.php");
+                return;
+            }
+
             if (!response.ok) {
                 alert("Speichern fehlgeschlagen. Status: " + response.status);
                 return;
@@ -62,6 +68,12 @@ class CategoryDetailController {
         document.body.classList.add("loading");
 
         const response = await ApiModel.getCategory(categoryId);
+
+        if (response.status === 401) {
+                alert("Sie sind nicht angemeldet.");
+                window.location.replace("/index.php");
+                return;
+            }
 
         if (!response.ok) {
             throw new Error("Kategorie konnte nicht geladen werden. Status: " + response.status);
