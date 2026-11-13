@@ -127,7 +127,7 @@ class ApiModel {
      * Erstellt oder bearbeitet ein Produkt.
      * @param sku SKU des Produkts
      * @param active Status des Produkts
-     * @param id_category ID der Kategorie
+     * @param categoryId ID der Kategorie
      * @param name Name des Produkts
      * @param image Link zum Produktbild
      * @param description Beschreibung des Produkts
@@ -135,13 +135,13 @@ class ApiModel {
      * @param stock Lagerbestand
      * @returns Promise mit der API-Antwort
      */
-    static createUpdateProduct(sku, active, id_category, name, image, description, price, stock) {
+    static createUpdateProduct(sku, active, categoryId, name, image, description, price, stock) {
         return fetch("https://campus.csbe.ch/uek294/api/v1/product/" + encodeURIComponent(sku), {
             method: "PUT",
             credentials: "include",
             body: JSON.stringify({
                 active: active,
-                id_category: id_category,
+                id_category: categoryId,
                 name: name,
                 image: image,
                 description: description,

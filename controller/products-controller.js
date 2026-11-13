@@ -12,6 +12,7 @@ class ProductsController {
         try {
             const response = await ApiModel.getProducts();
 
+            // Leitet nicht angemeldete Benutzer zur Loginseite weiter.
             if (response.status === 401) {
                 alert("Sie sind nicht angemeldet.");
                 window.location.replace("/index.php");
@@ -30,6 +31,7 @@ class ProductsController {
             // Leert Tabelle
             table.replaceChildren();
 
+            // Erstellt für jedes Produkt eine Tabellenzeile.
             for (const product of products) {
                 const row = table.insertRow();
 
@@ -59,7 +61,7 @@ class ProductsController {
                     await ProductsController.deleteProduct(product.sku);
                     location.reload();
                 });
-                
+
                 //Fügt Button in der letzten Zelle ein
                 lastCell.appendChild(editButton);
                 lastCell.appendChild(deleteButton);
@@ -67,6 +69,7 @@ class ProductsController {
             }
         } catch (error) {
             console.error(error);
+            alert("Produkte konnten nicht geladen werden.");
         } finally {
             document.body.classList.remove("loading");
         }
@@ -82,16 +85,17 @@ class ProductsController {
         try {
             const response = await ApiModel.deleteProduct(sku);
 
-            if (!response.ok) {
-                alert("Status: " + response.status);
-                return;
-            } else if (response.status === 204) {
+            if (response.status === 204) {
                 alert("Produkt erfolgreich gelöscht: " + response.status);
             } else if (response.status === 404) {
                 alert("Produkt nicht gefunden: " + response.status);
+            } else if (!response.ok) {
+                alert("Produkt konnte nicht gelöscht werden. Status: " + response.status);
+                return;
             }
         } catch (error) {
             console.error(error);
+            alert("Produkt konnte nicht gelöscht werden.");
         } finally {
             document.body.classList.remove("loading");
         }

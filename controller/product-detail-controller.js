@@ -19,18 +19,19 @@ class ProductDetailController {
      */
     static async createUpdateProduct() {
         const sku = document.querySelector("#sku").value;
-        const id_category = document.querySelector("#id_category").value;
+        const categoryId  = document.querySelector("#id_category").value;
         const name = document.querySelector("#name").value;
         const image = document.querySelector("#image").value;
         const price = document.querySelector("#price").value;
         const stock = document.querySelector("#stock").value;
         const description = document.querySelector("#description").value;
+        // Wandelt den Haken der Checkbox in 1 oder 0 um.
         const active = document.querySelector("#product_active").checked ? 1 : 0;
 
         document.body.classList.add("loading");
 
         try {
-            const response = await ApiModel.createUpdateProduct(sku, active, id_category, name, image, description, price, stock);
+            const response = await ApiModel.createUpdateProduct(sku, active, categoryId , name, image, description, price, stock);
 
             if (response.status === 401) {
                 alert("Sie sind nicht angemeldet.");
@@ -39,7 +40,7 @@ class ProductDetailController {
             }
 
             if (!response.ok) {
-                alert("Status: " + response.status);
+                alert("Produkt konnte nicht gespeichert werden. Status: " + response.status);
                 return;
             } else if (response.status === 201) {
                 alert("Produkt erfolgreich erstellt: " + response.status);
@@ -50,6 +51,7 @@ class ProductDetailController {
             }
         } catch (error) {
             console.error(error);
+            alert("Produkt konnte nicht gespeichert werden.");
         } finally {
             document.body.classList.remove("loading");
         }
@@ -62,10 +64,10 @@ class ProductDetailController {
         const response = await ApiModel.getCategories();
 
         if (response.status === 401) {
-                alert("Sie sind nicht angemeldet.");
-                window.location.replace("/index.php");
-                return;
-            }
+            alert("Sie sind nicht angemeldet.");
+            window.location.replace("/index.php");
+            return;
+        }
 
         if (!response.ok) {
             throw new Error("Kategorien konnten nicht geladen werden.");
@@ -74,6 +76,7 @@ class ProductDetailController {
         const categories = await response.json();
         const select = document.getElementById("id_category");
 
+        // Fügt jede Kategorie als Auswahl im Dropdown ein.
         for (const category of categories) {
             const option = document.createElement("option");
             option.value = category.category_id;
@@ -90,6 +93,7 @@ class ProductDetailController {
         const params = new URLSearchParams(window.location.search);
         const sku = params.get("sku");
 
+        // Lässt das Formular ohne SKU für ein neues Produkt leer.
         if (!sku) {
             return;
         }
@@ -103,6 +107,7 @@ class ProductDetailController {
         const product = await response.json();
 
         document.getElementById("sku").value = sku;
+        // Verhindert das Ändern der SKU beim Bearbeiten.
         document.getElementById("sku").readOnly = true;
         document.getElementById("id_category").value = product.id_category;
         document.getElementById("name").value = product.name;
@@ -114,6 +119,7 @@ class ProductDetailController {
     }
 }
 document.body.classList.add("loading");
+// Lädt zuerst die Kategorien und danach die Produktdaten.
 ProductDetailController.loadCategory()
     .then(() => ProductDetailController.loadDetailProduct())
     .finally(() => document.body.classList.remove("loading"))

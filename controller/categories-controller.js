@@ -27,6 +27,8 @@ class CategoriesController {
             //console.log("API-Antwort:", categories);
 
             const table = document.getElementById("categories");
+
+            // Entfernt die bisherigen Tabellenzeilen.
             table.replaceChildren();
 
             for (const category of categories) {
@@ -47,6 +49,7 @@ class CategoriesController {
                     window.location.href = "category-detail.php?category_id=" + encodeURIComponent(category.category_id);
                 });
                 deleteButton.addEventListener("click", async () => {
+                    // Bricht das Löschen ab, wenn der Benutzer nicht bestätigt.
                     if (!confirm("Möchtest du diese Kategorie wirklich löschen?\n\nKategorie-ID: " + category.category_id + "\nName: " + category.name)) {
                         return;
                     }
@@ -61,6 +64,7 @@ class CategoriesController {
             }
         } catch (error) {
             console.error(error);
+            alert("Kategorien konnten nicht geladen werden.");
         } finally {
             document.body.classList.remove("loading");
         }
@@ -76,16 +80,17 @@ class CategoriesController {
         try {
             const response = await ApiModel.deleteCategory(categoryID);
 
-            if (!response.ok) {
-                alert("Status: " + response.status);
-                return;
-            } else if (response.status === 204) {
+            if (response.status === 204) {
                 alert("Kategorie erfolgreich gelöscht: " + response.status);
             } else if (response.status === 404) {
                 alert("Kategorie nicht gefunden: " + response.status);
+            } else if (!response.ok) {
+                alert("Kategorie konnte nicht gelöscht werden. Status: " + response.status);
+                return;
             }
         } catch (error) {
             console.error(error);
+            alert("Kategorie konnte nicht gelöscht werden.");
         } finally {
             document.body.classList.remove("loading");
         }

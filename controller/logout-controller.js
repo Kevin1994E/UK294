@@ -22,7 +22,7 @@ class LogoutController {
         alert(response.status + ": " + errorData.error_message);
     }
 
-    // async Code darunter läuft weiter und wartet nicht bis er fertig ist. (Bei Anfragen / wartezeit unbekannt)
+    // Mit await wartet die Funktion auf die Antwort der API.
     /**
      * Sendet die Abmeldung an die API.
      */
@@ -42,8 +42,9 @@ class LogoutController {
             LogoutController.logoutSuccessfully();
         } catch (error) {
             console.error(error.message);
+            alert("Abmeldung nicht möglich.");
         }
-        // Wird hier beendet das auch im Fall die Anfrage fehlschlägt.
+        // Beendet den Ladecursor auch bei einem Fehler.
         finally {
             document.body.classList.remove("loading");
         }

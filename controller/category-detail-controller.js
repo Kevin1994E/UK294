@@ -11,7 +11,6 @@ class CategoryDetailController {
         // Verhindert das die Seinte neu geladen wird beim drücken des Buttons.
         event.preventDefault();
         CategoryDetailController.createUpdateCategory();
-        //document.body.classList.add("loading");
     }
 
     /**
@@ -28,6 +27,7 @@ class CategoryDetailController {
         try {
             let response;
 
+            // Bearbeitet die Kategorie mit ID oder erstellt eine neue ohne ID.
             if (categoryId) {
                 response = await ApiModel.updateCategory(categoryId, active, name);
             } else {
@@ -61,6 +61,7 @@ class CategoryDetailController {
         const params = new URLSearchParams(window.location.search);
         const categoryId = params.get("category_id");
 
+        // Lässt das Formular für eine neue Kategorie leer.
         if (!categoryId) {
             return;
         }
@@ -70,10 +71,10 @@ class CategoryDetailController {
         const response = await ApiModel.getCategory(categoryId);
 
         if (response.status === 401) {
-                alert("Sie sind nicht angemeldet.");
-                window.location.replace("/index.php");
-                return;
-            }
+            alert("Sie sind nicht angemeldet.");
+            window.location.replace("/index.php");
+            return;
+        }
 
         if (!response.ok) {
             throw new Error("Kategorie konnte nicht geladen werden. Status: " + response.status);

@@ -8,7 +8,7 @@ require __DIR__ . '/blocks/header.php';
 <h1>Kategorien</h1>
 
 <button type="button" onclick="window.location.href='category-detail.php'">
-    Neues Kategorie erfassen
+    Neue Kategorie erfassen
 </button>
 
 <table border="20">
